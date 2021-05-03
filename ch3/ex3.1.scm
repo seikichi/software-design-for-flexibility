@@ -1,4 +1,5 @@
 (load "../sdf/manager/load")
+(manage 'new 'combining-arithmetics)
 
 (define boolean-arithmetic
   (make-arithmetic 'boolean boolean? '()
@@ -18,12 +19,12 @@
 
 (install-arithmetic! boolean-arithmetic)
 
-(+)       ; #f
-(*)       ; #t
-(- #t)    ; #f
-(- #f)    ; #t
-(+ #t #t) ; #t
-(+ #t #f) ; #t
-(+ #f #f) ; #f
-(* #t #t) ; #t
-(* #f #t) ; #f
+(assert (eq? (+) #f))
+(assert (eq? (*) #t))
+(assert (eq? (- #t) #f))
+(assert (eq? (- #f) #t))
+(assert (eq? (+ #t #t) #t))
+(assert (eq? (+ #t #f) #t))
+(assert (eq? (+ #f #f) #f))
+(assert (eq? (* #t #t) #t))
+(assert (eq? (* #t #f) #f))
