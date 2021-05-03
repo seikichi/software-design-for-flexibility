@@ -1,4 +1,6 @@
-(load "sdf/manager/load")
+(load "../sdf/manager/load")
+
+;; 3.1.1
 (manage 'new 'combining-arithmetics)
 
 (define (make-initial-history t h xt xt-h xt-2h)
@@ -46,8 +48,26 @@
 (x 0 ((evolver F .01 stormer-2) numeric-s0 100)) ;; .8414709493275624
 (sin 1)                                          ;; .8414709848078965
 
+;; 3.1.2
 (install-arithmetic! symbolic-arithmetic-1)
 
 (+ 'a 'b) ;; (+ a b)
 (+ 1 2)   ;; (+ 1 2)
 (x 0 ((evolver F 'h stormer-2) (make-initial-history 't 'h 'xt 'xt-h 'xt-2h) 1))
+
+;; 3.1.3
+(install-arithmetic! combined-arithmetic)
+(+ 1 2)
+(+ 'a 'b)
+(+ 'a 2)
+(x 0 ((evolver F 'h stormer-2) (make-initial-history 't 'h 'xt 'xt-h 'xt-2h) 1))
+(x 0 ((evolver F 'h stormer-2) numeric-s0 1))
+
+;; 3.1.4
+(install-arithmetic! (extend-arithmetic pure-function-extender combined-arithmetic))
+((+ cos sin) 3)
+((+ cos sin) 'a)
+
+(install-arithmetic! (extend-arithmetic function-extender combined-arithmetic))
+((+ 1 cos) 'a)
+(* 'b ((+ (literal-function 'c) cos sin) (+ (+ 1 2) 'a)))
